@@ -21,12 +21,12 @@
 
 - name: Print installed version
   debug:
-    msg: "{{ incron_installed_version }}.split(' ')[1]"
+    msg: "{{ incron_installed_version.stderr }}.split(' ')[1]"
 
 - name: Force incron install if the version numbers do not match
   set_fact:
     incron_reinstall_from_source: true
-  when: "incron_install_from_source_force_update and (incron_installed_version is success and {{ incron_installed_version }}.split(' ')[1] is version(incron_source_version, operator='lt'))"
+  when: "incron_install_from_source_force_update and (incron_installed_version is success and {{ incron_installed_version.stderr }}.split(' ')[1] is version(incron_source_version, operator='lt'))"
 
 - name: Download incron
   get_url:
