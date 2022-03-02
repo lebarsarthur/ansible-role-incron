@@ -25,7 +25,7 @@
 
 - name: Print installed version
   debug:
-    msg: "{{ incron_installed_version.stderr.split(' ')[1] }}"
+    msg: "{{ incron_installed_version }}"
 
 - name: Force incron install if the version numbers do not match
   set_fact:
