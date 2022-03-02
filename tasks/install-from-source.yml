@@ -20,7 +20,8 @@
   register: incron_installed_version
 
 - name: Print installed version
-  msg: "{{ incron_installed_version }}.split(' ')[1]"
+  debug:
+    msg: "{{ incron_installed_version }}.split(' ')[1]"
 
 - name: Force incron install if the version numbers do not match
   set_fact:
