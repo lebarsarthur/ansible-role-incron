@@ -1,13 +1,13 @@
 ---
 - name: Ensure incron's dependencies are installed (RedHat).
-  yum: "pkg: ['build-essential'] state=installed"
+  yum: "pkg={{ item }} state=installed"
   with_items:
     - make
     - gcc
   when: ansible_os_family == 'RedHat'
 
 - name: Ensure incron's dependencies are installed (Debian).
-  apt: "pkg: ['build-essential'] state=installed"
+  apt: "pkg={{ item }} state=installed"
   with_items:
     - build-essential
   when: ansible_os_family == 'Debian'
