@@ -13,7 +13,7 @@
 - name: Install from source.
   include_tasks:
     file: install-from-source.yml
-    when: incron_install_from_source == true
+  when: incron_install_from_source == true
 
 - name: Ensure Incron is running and enabled as configured.
   service:
