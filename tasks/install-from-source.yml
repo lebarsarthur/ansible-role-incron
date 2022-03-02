@@ -17,12 +17,6 @@
   command: incrond -V
   changed_when: false
   failed_when: false
-  register: incron_installed_version_complete
-
-- name: Get installed version
-  command: incrond -V
-  changed_when: false
-  failed_when: false
   register: incron_installed_version
 
 - name: Force incron install if the version numbers do not match
@@ -35,7 +29,7 @@
     url: "https://github.com/ar-/incron/archive/{{ incron_source_version }}.tar.gz"
     dest: "{{ workspace }}/incron-{{ incron_source_version }}.tar.gz"
     validate_certs: no
-  when:  incron_installed_version|failed or incron_reinstall_from_source
+  when:  incron_installed_version is failed or incron_reinstall_from_source
 
 - name: Expand incron archive
   unarchive:
@@ -43,14 +37,14 @@
     dest: "{{ workspace }}"
     creates: "{{ workspace }}/incron-{{ incron_source_version }}/README"
     copy: no
-  when:  incron_installed_version|failed or incron_reinstall_from_source
+  when:  incron_installed_version is failed or incron_reinstall_from_source
 
 - name: Replace Makefile PREFIX
   lineinfile:
     dest: "{{ workspace }}/incron-{{ incron_source_version }}/Makefile"
     regexp: "^PREFIX = /usr/local$"
     line: "PREFIX = {{ incron_install_path }}"
-  when:  incron_installed_version|failed or incron_reinstall_from_source
+  when:  incron_installed_version is failed or incron_reinstall_from_source
 
 - name: Build incron
   command: >
@@ -59,5 +53,5 @@
   with_items:
     - all
     - install
-  when:  incron_installed_version|failed or incron_reinstall_from_source
+  when:  incron_installed_version is failed or incron_reinstall_from_source
   become: yes
