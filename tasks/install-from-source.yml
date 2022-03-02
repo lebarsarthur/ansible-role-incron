@@ -20,7 +20,7 @@
   register: incron_installed_version_complete
 
 - name: Get installed version number
-  command: 'echo {{ incron_installed_version_complete.stderr }} | awk -F: "{print $NF}"'
+  command: 'echo "{{ incron_installed_version_complete.stderr }}" | awk -F: "{print $NF}"'
   register: incron_installed_version
 
 - name: Print installed version
