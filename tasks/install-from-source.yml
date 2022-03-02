@@ -28,7 +28,7 @@
 - name: Force incron install if the version numbers do not match
   set_fact:
     incron_reinstall_from_source: true
-  when: 'incron_install_from_source_force_update is true and (incron_installed_version is success and (incron_installed_version.stderr | regex_replace("^.*?([0-9\.]+)$", "\\1") | version(incron_source_version, "<=")))'
+  when: 'incron_install_from_source_force_update is true and (incron_installed_version is success and (incron_installed_version.stderr | regex_replace("^.*?([0-9\.]+)$", "\\1")) is version(incron_source_version, "<="))'
 
 - name: Download incron
   get_url:
