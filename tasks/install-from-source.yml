@@ -22,7 +22,8 @@
 - name: Get installed version number
   shell: 'echo {{ incron_installed_version_complete.stderr }} | awk -F: "{print $NF}"'
   register: incron_installed_version_shell_output
-  set_fact:
+
+- set_fact:
     incron_installed_version: "{{ incron_installed_version_shell_output.stdout }}"
 
 - name: Print installed version
