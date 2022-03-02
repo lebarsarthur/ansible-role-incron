@@ -20,11 +20,8 @@
   register: incron_installed_version_complete
 
 - name: Get installed version number
-  shell: 'echo {{ incron_installed_version_complete.stderr }} | awk -F: "{print $NF}"'
-  register: incron_installed_version_shell_output
-
-- set_fact:
-    incron_installed_version: "{{ incron_installed_version_shell_output.stdout }}"
+  command: 'echo {{ incron_installed_version_complete.stderr }} | awk -F: "{print $NF}"'
+  register: incron_installed_version
 
 - name: Print installed version
   debug:
